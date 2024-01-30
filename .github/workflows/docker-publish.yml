@@ -50,8 +50,7 @@ jobs:
 
   build:
     name: Docker Build & Push
-    if:  github.repository == 'gethomepage/homepage'
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     needs:
       - pre-commit
     permissions:
@@ -119,7 +118,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' && !(github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature')) }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
